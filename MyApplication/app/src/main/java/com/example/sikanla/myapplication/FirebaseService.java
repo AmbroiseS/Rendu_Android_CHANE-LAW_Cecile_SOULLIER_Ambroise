@@ -14,7 +14,7 @@ public class FirebaseService extends FirebaseMessagingService {
     public FirebaseService() {
     }
 
-    
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
