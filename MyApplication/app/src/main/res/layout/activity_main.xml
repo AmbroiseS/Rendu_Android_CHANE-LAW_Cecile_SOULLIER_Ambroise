@@ -8,6 +8,22 @@
     android:orientation="vertical"
     tools:context="com.example.sikanla.myapplication.MainActivity">
 
-   
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabBtn"
+            android:layout_width="101dp"
+            android:layout_height="106dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:hapticFeedbackEnabled="true"
+            app:backgroundTint="@color/top"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>
