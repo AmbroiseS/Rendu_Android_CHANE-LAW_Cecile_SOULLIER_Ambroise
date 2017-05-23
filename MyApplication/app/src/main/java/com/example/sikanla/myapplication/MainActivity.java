@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
     private ListView listView;
-
+    private  ImageDisplayAdapter imageDisplayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +58,20 @@ public class MainActivity extends AppCompatActivity {
         //   refDatabase.setValue("Hello, World!");
 
         listView = (ListView) findViewById(R.id.listView);
-        ArrayList<ModelImage> arrayList= new ArrayList<>();
-        final ImageDisplayAdapter imageDisplayAdapter = new ImageDisplayAdapter(this,arrayList);
+        ArrayList<ModelImage> arrayList = new ArrayList<>();
+        imageDisplayAdapter = new ImageDisplayAdapter(this, arrayList);
+        //  listView.setAdapter(imageDisplayAdapter);
         listView.setAdapter(imageDisplayAdapter);
-
 
 
         refDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                Log.e("ci", dataSnapshot.getKey());
-               // ModelImage modelImage= dataSnapshot.getValue(ModelImage.class);
-
-                  //  imageDisplayAdapter.add(dataSnapshot.getValue().getValue(ModelImage.class));
-              //  listView.setAdapter(imageDisplayAdapter);
+                Log.e("ci", dataSnapshot.getValue().toString());
+                // ModelImage modelImage= dataSnapshot.getValue(ModelImage.class);
+                imageDisplayAdapter.add(new ModelImage(dataSnapshot.getValue().toString()));
 
 
-
-                //  Dinosaur dinosaur = dataSnapshot.getValue(Dinosaur.class);
-                //  System.out.println(dataSnapshot.getKey() + " was " + dinosaur.height + " meters tall.");
             }
 
             @Override
@@ -142,8 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 @SuppressWarnings("VisibleForTests")
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Toast.makeText(getApplicationContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show();
-                refDatabase.child(f).setValue(new ModelImage(downloadUrl.toString()));
+                refDatabase.child(f).setValue(downloadUrl.toString());
                 Log.e("ta", downloadUrl.toString());
+               
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
