@@ -1,5 +1,7 @@
-package com.example.sikanla.myapplication;
+package com.example.sikanla.myapplication.FirebaseServices;
 
+import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -17,11 +19,11 @@ public class FirebaseToken extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // Instance ID token to your app server.
-       // sendRegistrationToServer(refreshedToken);
+
+        SharedPreferences prefs = getSharedPreferences("id", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("APIKEY", refreshedToken);
+        editor.commit();
     }
 }
