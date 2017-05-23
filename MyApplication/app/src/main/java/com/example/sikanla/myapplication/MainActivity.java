@@ -1,16 +1,15 @@
 package com.example.sikanla.myapplication;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,13 +23,17 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 
+
+
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_CAMERA_RESULT = 1;
+
 
     private StorageReference storageRef;
     private DatabaseReference myRef;
+
+    ImageView imageView;
 
 
     @Override
@@ -40,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         instantiateFAB();
         storageRef = FirebaseStorage.getInstance().getReference();
         myRef = FirebaseDatabase.getInstance().getReference("urlPictures");
-     //   myRef.setValue("Hello, World!");
+        //   myRef.setValue("Hello, World!");
+        imageView = (ImageView) findViewById(R.id.imageView);
 
     }
 
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -83,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+        }
     }
 
     void downloadMethod() {
