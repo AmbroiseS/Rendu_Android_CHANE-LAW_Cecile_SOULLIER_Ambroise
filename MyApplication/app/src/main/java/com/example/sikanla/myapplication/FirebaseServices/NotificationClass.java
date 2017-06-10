@@ -33,7 +33,6 @@ public class NotificationClass {
                     JSONObject notification = new JSONObject();
                     notification.put("body", body);
                     notification.put("title", title);
-                   // notification.put("icon", icon);
 
                     JSONObject data = new JSONObject();
                     data.put("title", title);

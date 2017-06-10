@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Perms.verifyStoragePermissions(this);
-
         arrayListTokens = new ArrayList<>();
         storageRef = FirebaseStorage.getInstance().getReference();
         mDB = FirebaseDatabase.getInstance();
@@ -70,12 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
         instantiateFAB();
 
+        //upload android tokens to firebase database
         saveAndroidTokentoDB();
 
+        //get other users tokens
         pullTokens();
 
         instantiateAdapter();
 
+        // get pictures url from firebase database
         pullPictures();
 
 

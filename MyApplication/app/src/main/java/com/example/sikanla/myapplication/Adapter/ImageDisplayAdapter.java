@@ -63,7 +63,7 @@ public class ImageDisplayAdapter extends ArrayAdapter<ModelImage> {
 
         Picasso.with(context).load(modelImage.urlPic).into(viewHolder.pictureDisplay);
 
-//click on item will display dialog fragment with infos(or no infos rather)
+    //click on item will display dialog fragment with infos(or no infos rather)
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +73,8 @@ public class ImageDisplayAdapter extends ArrayAdapter<ModelImage> {
                     Bitmap bitmap = viewHolder.pictureDisplay.getDrawingCache();
 
                     try {
-//doesnt work, exif is alwais null
+    //doesnt work, exif is alwais null
+    // could have used a gps class, but wasnt the right way to get the Gps coordinates
                         File path = context.getFilesDir();
                         File file = new File(path,"temp.jpg");
 
@@ -93,8 +94,6 @@ public class ImageDisplayAdapter extends ArrayAdapter<ModelImage> {
             }
         });
 
-
-        // Return the completed view to render on screen
         return convertView;
     }
 
